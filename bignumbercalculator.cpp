@@ -1,6 +1,8 @@
 #include <iostream>
 #include <limits>
 
+bool debug {0};
+
 class Exponenter
 {
     long long int m_intBase {};
@@ -22,13 +24,15 @@ public:
         {
             for (int i {1}; i < intExp; ++i)
             {
-                std::cout << temp << '\n';
+                if (debug)
+                {
+                    printExpDebugInfo(temp, i);
+                }
                 long long int prevTemp = temp;
                 temp *= m_intBase;
-                std::cout << "Looped " << i << " time(s).\n";
                 if (temp != 0)
                 {
-                overflowVar = temp / prevTemp;
+                    overflowVar = temp / prevTemp;
                 }
                 if (overflowCheck(temp, prevTemp, overflowVar))
                 {
@@ -36,10 +40,11 @@ public:
                     double temp2 {static_cast<double>(prevTemp)};
                     for (int k {i}; k < intExp; ++k)
                     {
-                        std::cout << temp2 << '\n';
+                        if (debug)
+                        {
+                            printExpDebugInfo(temp2, ((k - i) + 1), k);
+                        }
                         temp2 *= m_intBase;
-                        std::cout << "Double-precision arithmetic looped " << ((k - i) + 1) <<
-                        " time(s). Total " << k << " time(s).\n";
                         if (temp2 > std::numeric_limits<double>::max())
                         {
                             printDoubleOverflowError();
@@ -60,10 +65,12 @@ public:
         {
             for (int i {-1}; i > intExp; --i)
             {
-                std::cout << temp << '\n';
+                if (debug)
+                {
+                    printExpDebugInfo(temp, -i);
+                }
                 long long int prevTemp = temp;
                 temp = temp * m_intBase;
-                std::cout << "Looped " << -i << " times.\n";
                 overflowVar = temp / prevTemp;
                 if (overflowCheck(temp, prevTemp, overflowVar))
                 {
@@ -71,10 +78,11 @@ public:
                     double temp2 {static_cast<double>(prevTemp)};
                     for (int k {i}; k > intExp; --k)
                     {
-                        std::cout << temp2 << '\n';
+                        if (debug)
+                        {
+                            printExpDebugInfo(temp2, ((i - k) - 1), -k);
+                        }
                         temp2 *= m_intBase;
-                        std::cout << "Double-precision arithmetic looped " << ((i - k) - 1) <<
-                        " time(s). Total " << -k << " time(s).\n";
                         if (temp2 > std::numeric_limits<double>::max())
                         {
                             printDoubleOverflowError();
@@ -102,22 +110,25 @@ public:
         long double overflowVar {};
         for (int i {static_cast<int>(m_intBase) - 1}; i > 1; --i)
         {
-            std::cout << temp << '\n';
             unsigned long long int prevTemp = temp;
             temp *= i;
-            std::cout << "Multiplying by " << i << ", Looped " << (m_intBase - i) << " time(s).\n";
+            if (debug)
+            {
+                printFactorialDebugInfo(temp, i, (m_intBase - i));
+            }
             overflowVar = temp / prevTemp;
             if (overflowCheck(temp, prevTemp, overflowVar))
             {
                 std::cerr << "Integer Overflow Detected at factorial() on iteration: " << (m_intBase - i) << '\n' <<
                     "Falling back to double-precison floating-point format.\n";
-                double temp2 {static_cast<double>(prevTemp)};
+                long double temp2 {static_cast<long double>(prevTemp)};
                 for (int k {i}; k > 1; --k)
                 {
-                    std::cout << temp2 << '\n';
+                    if (debug)
+                    {
+                        printFactorialDebugInfo(temp2, k, ((i - k) + 1), (m_intBase - k));
+                    }
                     temp2 *= k;
-                    std::cout << "Multiplying by " << k << ", Double-precision arithmetic looped " << 
-                    ((i - k) + 1) << " time(s). Total " << (m_intBase - k) << " time(s).\n";
                     if (temp2 > std::numeric_limits<double>::max())
                     {
                         printDoubleOverflowError();
@@ -162,7 +173,47 @@ public:
         "These numbers are beyond this calculator's capabilities.\n" <<
         "Please lower the base or exponent to fit the number.\n";
     }
+
+    void printExpDebugInfo(long long int temp, int i)
+    {
+        std::cout << temp << '\n';
+        std::cout << "Looped " << i << " time(s).\n";
+    }
+
+    void printExpDebugInfo(long double temp, int i, int k)
+    {
+        std::cout << temp << '\n';
+        std::cout << "Double-precision arithmetic looped " << i <<
+        " time(s). Total " << k << " time(s).\n";
+    }
+
+    void printFactorialDebugInfo(long long int temp, int i, int loop)
+    {
+        std::cout << temp << '\n';
+        std::cout << "Multiplying by " << i << ", Looped " << loop << " time(s).\n";
+    }
+
+    void printFactorialDebugInfo(long double temp2, int k, int i, int loop)
+    {
+        std::cout << temp2 << '\n';
+        std::cout << "Multiplying by " << k << ", Double-precision arithmetic looped " <<
+            i << " time(s). Total " << loop << " time(s).\n";
+    }
 };
+
+void toggleDebugInfo()
+{
+    if (debug == 1)
+    {
+        debug = 0;
+        std::cout << "Debug information now set to: DISABLED\n";
+    }
+    else
+    {
+        debug = 1;
+        std::cout << "Debug information now set to: ENABLED\n";
+    }
+}
 
 void printResult(auto result)
 {
@@ -190,7 +241,8 @@ void printMainMenu()
     std::cout << "\nThe following options are available:\n";
     std::cout << "\t1. Enter a new base number\n";
     std::cout << "\t2. Perform a function on an existing number\n";
-    std::cout << "\t3. Quit\n";
+    std::cout << "\t3. Toggle debug information\n";
+    std::cout << "\t4. Quit\n";
 }
 
 int printFunctionMenu()
@@ -212,11 +264,11 @@ int main()
 {
     Exponenter number {getInteger()};
     int option {-1};
-    while (option != 3)
+    while (option != 4)
     {
         printMainMenu();
         std::cin >> option;
-        if ((option > 0) && (option < 4))
+        if ((option > 0) && (option < 5))
         {
             switch (option)
             {
@@ -246,8 +298,14 @@ int main()
                             break;
                         }
                     }
+                    break;
                 }
                 case 3:
+                {
+                    toggleDebugInfo();
+                    break;
+                }
+                case 4:
                 {
                     break;
                 }
