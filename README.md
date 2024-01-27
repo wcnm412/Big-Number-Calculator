@@ -24,3 +24,4 @@ To add:
   - Browse history, including past *base* numbers and the result of operations on them
   - Allow multiple operations and numbers to be chained together, e.g. a * b + c / d
     - Ask user to enter a string, and interpret string as a series of numbers and operations
+  - Use result as new base?
