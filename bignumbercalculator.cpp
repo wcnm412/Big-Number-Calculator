@@ -5,20 +5,49 @@ bool debug {0};
 
 class Exponenter
 {
-    long long int m_intBase {};
+    long double m_intBase {};
 
 public:
     
-    explicit Exponenter(int intBase)
+    explicit Exponenter(long double intBase)
         : m_intBase {intBase}
     {
         std::cout << "Constructed Number with value: " << m_intBase << '\n';
     }
     
+    double add(double b)
+	{
+		std::cout << "Evaluating: " << m_intBase << " + " << b << '\n';
+        return (m_intBase + b);
+	}
+
+	double subtract(double b)
+	{
+		std::cout << "Evaluating: " << m_intBase << " - " << b << '\n';
+        return (m_intBase - b);
+	}
+
+	double multiply(double b)
+	{
+		std::cout << "Evaluating: " << m_intBase << " * " << b << '\n';
+        return (m_intBase * b);
+	}
+
+	double divide(double b)
+	{
+		std::cout << "Evaluating: " << m_intBase << " / " << b << '\n';
+        return (m_intBase / b);
+	}
+
     double power(int intExp = 1)
     {
+        while (!(isInteger()))
+        {
+            std::cout << "Functionality for non-integer exponentiation has not been added yet.";
+            replaceInteger();
+        }
         std::cout << "Evaluating " << m_intBase << " raised to the power of " << intExp << '\n';
-        long long int temp {m_intBase};
+        long long int temp {static_cast<long long int>(m_intBase)};
         long double overflowVar {};
         if (intExp >= 1)
         {
@@ -100,9 +129,9 @@ public:
 
     double factorial()
     {
-        while (m_intBase < 0)
+        while ((m_intBase < 0) || (!(isInteger())))
         {
-            std::cerr << "Error: Factorial cannot be applied to a negative number.";
+            std::cerr << "Error: Factorial can only be applied to positive integers.";
             replaceInteger();
         }
         std::cout << "Evaluating " << m_intBase << '!' << '\n';
@@ -114,7 +143,7 @@ public:
             temp *= i;
             if (debug)
             {
-                printFactorialDebugInfo(temp, i, (m_intBase - i));
+                printFactorialDebugInfo(prevTemp, i, (m_intBase - i));
             }
             overflowVar = temp / prevTemp;
             if (overflowCheck(temp, prevTemp, overflowVar))
@@ -152,8 +181,15 @@ public:
 
     void replaceInteger()
     {
-        std::cout << "\nEnter a new integer: ";
-        std::cin >> m_intBase;
+        std::cout << "Enter an Integer: ";
+        long double x {m_intBase};
+        std::cin >> x;
+        while (x - static_cast<int>(x))
+        {
+            std::cout << "\nPlease enter an integer, not any other number type: ";
+            std::cin >> x;
+        }
+        m_intBase = x;
     }
 
     void printBase()
@@ -199,6 +235,18 @@ public:
         std::cout << "Multiplying by " << k << ", Double-precision arithmetic looped " <<
             i << " time(s). Total " << loop << " time(s).\n";
     }
+
+    bool isInteger()
+    {
+        if ((m_intBase - static_cast<int>(m_intBase)) == 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 };
 
 void toggleDebugInfo()
@@ -236,6 +284,14 @@ constexpr int getInteger()
     return x;
 }
 
+constexpr double getNumber()
+{
+    std::cout << "Enter a number: ";
+    double x;
+    std::cin >> x;
+    return x;
+}
+
 void printMainMenu()
 {
     std::cout << "\nThe following options are available:\n";
@@ -248,12 +304,31 @@ void printMainMenu()
 int printFunctionMenu()
 {
     int x {-1};
-    while ((x < 1) || (x > 3))
+    while ((x < 1) || (x > 6))
+    {
+        std::cout << "\nThe following functions are available:\n";
+        std::cout << "\t1. Addition\n";
+        std::cout << "\t2. Subtraction\n";
+        std::cout << "\t3. Multiplication\n";
+        std::cout << "\t4. Division\n";
+        std::cout << "\t5. Further functions (INTEGER ONLY)\n";
+        std::cout << "\t6. Return to Menu\n";
+        std::cout << "Please enter a number: ";
+        std::cin >> x;
+    }
+    return x;
+}
+
+int printExpFunctionMenu()
+{
+    int x {-1};
+    while ((x < 1) || (x > 4))
     {   
         std::cout << "\nThe following functions are available:\n";
         std::cout << "\t1. Exponentiation\n";
         std::cout << "\t2. Factorial\n";
-        std::cout << "\t3. Return to Menu\n";
+        std::cout << "\t3. Back\n";
+        std::cout << "\t4. Return to Menu\n";
         std::cout << "Please enter a number: ";
         std::cin >> x;
     }
@@ -262,7 +337,7 @@ int printFunctionMenu()
 
 int main()
 {
-    Exponenter number {getInteger()};
+    Exponenter number {getNumber()};
     int option {-1};
     while (option != 4)
     {
@@ -285,20 +360,57 @@ int main()
                     {
                         case 1:
                         {
-                            printResult(number.power(getInteger()));
+                            printResult(number.add(getNumber()));
                             break;
                         }
                         case 2:
                         {
-                            printResult(number.factorial());
+                            printResult(number.subtract(getNumber()));
                             break;
                         }
                         case 3:
                         {
+                            printResult(number.multiply(getNumber()));
                             break;
                         }
-                    }
+                        case 4:
+                        {
+                            printResult(number.divide(getNumber()));
+                            break;
+                        }
+                        case 5:
+                        {
+                            while (!(number.isInteger()))
+                            {
+                                std::cout << "The following functions can only be applied to integers.\n";
+                                number.replaceInteger();
+                            }
+                            switch (printExpFunctionMenu())
+                            {
+                                case 1:
+                                {
+                                    printResult(number.power(getInteger()));
+                                    break;
+                                }
+                                case 2:
+                                {
+                                    printResult(number.factorial());
+                                    break;
+                                }
+                                case 3:
+                                {
+                                    break;
+                                }
+                            }
+                            break;
+                        }
+                        case 6:
+                        {
+                            break;
+                        }
                     break;
+                    }
+                break;
                 }
                 case 3:
                 {
