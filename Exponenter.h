@@ -3,6 +3,7 @@
 #include <iostream>
 #include <limits>
 #include <cstdint>
+#include "replacementBase.h"
 
 class Exponenter
 {
@@ -26,7 +27,7 @@ public:
     void printFactorialDebugInfo(long long unsigned int& temp, long long int& i, int loop);
     void printFactorialDebugInfo(long double& temp2, long long int& k, long long int i, int loop);
     bool isInteger();
-
+    friend class replacementBase;
 };
 
 #endif

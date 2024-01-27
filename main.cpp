@@ -17,27 +17,33 @@ int main()
             }
             case 2:
             {
+                replacementBase replacer {};
+                replacer.m_baseReplace = number.m_intBase;
                 number.printBase();
                 switch (printFunctionMenu())
                 {
                     case 1:
                     {
-                        printResult(number.add(getNumber()));
+                        replacer.m_baseReplace = number.add(getNumber());
+                        printResult(replacer.m_baseReplace);
                         break;
                     }
                     case 2:
                     {
-                        printResult(number.subtract(getNumber()));
+                        replacer.m_baseReplace = number.subtract(getNumber());
+                        printResult(replacer.m_baseReplace);
                         break;
                     }
                     case 3:
                     {
-                        printResult(number.multiply(getNumber()));
+                        replacer.m_baseReplace = number.multiply(getNumber());
+                        printResult(replacer.m_baseReplace);
                         break;
                     }
                     case 4:
                     {
-                        printResult(number.divide(getNumber()));
+                        replacer.m_baseReplace = number.divide(getNumber());
+                        printResult(replacer.m_baseReplace);
                         break;
                     }
                     case 5:
@@ -51,12 +57,14 @@ int main()
                         {
                             case 1:
                             {
-                                printResult(number.power(getInteger()));
+                                replacer.m_baseReplace = number.power(getNumber());
+                                printResult(replacer.m_baseReplace);
                                 break;
                             }
                             case 2:
                             {
-                                printResult(number.factorial());
+                                replacer.m_baseReplace = number.factorial();
+                                printResult(replacer.m_baseReplace);
                                 break;
                             }
                             case 3:
@@ -71,6 +79,21 @@ int main()
                         break;
                     }
                 break;
+                }
+                if (!replacer.isEqual(number))
+                {
+                    char x {-1};
+                    while (!(x == 'y') || !(x == 'n'))
+                    {
+                        std::cout << "Would you like to use this result as the next base? (y/n)\n";
+                        std::cin >> x;
+                    }
+                    if (x == 'y')
+                    {
+                        number.m_intBase = replacer.m_baseReplace;
+                        replacer.replaceBaseIDIncrement();
+                    }
+                    break;
                 }
             break;
             }
