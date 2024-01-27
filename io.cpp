@@ -1,12 +1,19 @@
 #include "io.h"
 
-void printMainMenu()
+int printMainMenu()
 {
-    std::cout << "\nThe following options are available:\n";
-    std::cout << "\t1. Enter a new base number\n";
-    std::cout << "\t2. Perform a function on an existing number\n";
-    std::cout << "\t3. Toggle debug information\n";
-    std::cout << "\t4. Quit\n";
+    int x {-1};
+    while ((x < 1) || (x > 4))
+    {
+        std::cout << "\nThe following options are available:\n";
+        std::cout << "\t1. Enter a new base number\n";
+        std::cout << "\t2. Perform a function on an existing number\n";
+        std::cout << "\t3. Toggle debug information\n";
+        std::cout << "\t4. Quit\n";
+        std::cout << "Please enter a number: ";
+        std::cin >> x;
+    }
+    return x;
 }
 
 int printFunctionMenu()

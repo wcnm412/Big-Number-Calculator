@@ -15,15 +15,15 @@ public:
     double divide(double b);
     double power(int intExp);
     double factorial();
-    bool overflowCheck(auto currentValue, auto lastValue, auto overflowVar);
+    bool overflowCheck(auto& currentValue, auto& lastValue, auto& overflowVar);
     void replaceInteger();
     void printBase();
-    void printIntOverflowError(int i);
+    void printIntOverflowError(int& i);
     void printDoubleOverflowError();
-    void printExpDebugInfo(long long int temp, int i);
-    void printExpDebugInfo(long double temp, int i, int k);
-    void printFactorialDebugInfo(long long int temp, int i, int loop);
-    void printFactorialDebugInfo(long double temp2, int k, int i, int loop);
+    void printExpDebugInfo(long long int& temp, int i);
+    void printExpDebugInfo(long double& temp, int i, int k);
+    void printFactorialDebugInfo(long long unsigned int& temp, int& i, int loop);
+    void printFactorialDebugInfo(long double& temp2, int& k, int i, int loop);
     bool isInteger();
 
 };

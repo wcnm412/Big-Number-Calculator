@@ -6,86 +6,82 @@ int main()
     int option {-1};
     while (option != 4)
     {
-        printMainMenu();
-        std::cin >> option;
-        if ((option > 0) && (option < 5))
+        option = printMainMenu();
+        switch (option)
         {
-            switch (option)
+            case 1:
             {
-                case 1:
+                number.printBase();
+                number.replaceInteger();
+                break;
+            }
+            case 2:
+            {
+                number.printBase();
+                switch (printFunctionMenu())
                 {
-                    number.printBase();
-                    number.replaceInteger();
-                    break;
-                }
-                case 2:
-                {
-                    number.printBase();
-                    switch (printFunctionMenu())
+                    case 1:
                     {
-                        case 1:
+                        printResult(number.add(getNumber()));
+                        break;
+                    }
+                    case 2:
+                    {
+                        printResult(number.subtract(getNumber()));
+                        break;
+                    }
+                    case 3:
+                    {
+                        printResult(number.multiply(getNumber()));
+                        break;
+                    }
+                    case 4:
+                    {
+                        printResult(number.divide(getNumber()));
+                        break;
+                    }
+                    case 5:
+                    {
+                        while (!(number.isInteger()))
                         {
-                            printResult(number.add(getNumber()));
-                            break;
+                            std::cout << "The following functions can only be applied to integers.\n";
+                            number.replaceInteger();
                         }
-                        case 2:
+                        switch (printExpFunctionMenu())
                         {
-                            printResult(number.subtract(getNumber()));
-                            break;
-                        }
-                        case 3:
-                        {
-                            printResult(number.multiply(getNumber()));
-                            break;
-                        }
-                        case 4:
-                        {
-                            printResult(number.divide(getNumber()));
-                            break;
-                        }
-                        case 5:
-                        {
-                            while (!(number.isInteger()))
+                            case 1:
                             {
-                                std::cout << "The following functions can only be applied to integers.\n";
-                                number.replaceInteger();
+                                printResult(number.power(getInteger()));
+                                break;
                             }
-                            switch (printExpFunctionMenu())
+                            case 2:
                             {
-                                case 1:
-                                {
-                                    printResult(number.power(getInteger()));
-                                    break;
-                                }
-                                case 2:
-                                {
-                                    printResult(number.factorial());
-                                    break;
-                                }
-                                case 3:
-                                {
-                                    break;
-                                }
+                                printResult(number.factorial());
+                                break;
                             }
-                            break;
+                            case 3:
+                            {
+                                break;
+                            }
                         }
-                        case 6:
-                        {
-                            break;
-                        }
-                    break;
+                        break;
+                    }
+                    case 6:
+                    {
+                        break;
                     }
                 break;
                 }
-                case 3:
-                {
-                    toggleDebugInfo();
-                    break;
-                }
-                case 4:
-                {
-                    break;
-                }
+            break;
+            }
+            case 3:
+            {
+                toggleDebugInfo();
+                break;
+            }
+            case 4:
+            {
+                break;
             }
         }
     }

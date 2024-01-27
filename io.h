@@ -31,7 +31,7 @@ constexpr double getNumber()
     return x;
 }
 
-void printMainMenu();
+int printMainMenu();
 int printFunctionMenu();
 int printExpFunctionMenu();
 

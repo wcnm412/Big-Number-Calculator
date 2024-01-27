@@ -58,7 +58,7 @@ double Exponenter::power(int intExp = 1)
             if (overflowCheck(temp, prevTemp, overflowVar))
             {
                 printIntOverflowError(i);
-                double temp2 {static_cast<double>(prevTemp)};
+                long double temp2 {static_cast<double>(prevTemp)};
                 for (int k {i}; k < intExp; ++k)
                 {
                     if (debug)
@@ -96,7 +96,7 @@ double Exponenter::power(int intExp = 1)
             if (overflowCheck(temp, prevTemp, overflowVar))
             {
                 printIntOverflowError(i);
-                double temp2 {static_cast<double>(prevTemp)};
+                long double temp2 {static_cast<double>(prevTemp)};
                 for (int k {i}; k > intExp; --k)
                 {
                     if (debug)
@@ -163,7 +163,7 @@ double Exponenter::factorial()
     return temp;
 }
 
-bool Exponenter::overflowCheck(auto currentValue, auto lastValue, auto overflowVar) 
+bool Exponenter::overflowCheck(auto& currentValue, auto& lastValue, auto& overflowVar) 
 {
     if ((currentValue != overflowVar * lastValue) || (currentValue < lastValue))
         return true;
@@ -189,7 +189,7 @@ void Exponenter::printBase()
     std::cout << "\nYour current base integer is: " << m_intBase << '\n';
 }
 
-void Exponenter::printIntOverflowError(int i)
+void Exponenter::printIntOverflowError(int& i)
 {
     std::cerr << "Error: Integer Overflow Detected on iteration: " << i << '\n' <<
     "Falling back to double-precison floating-point format.\n";
@@ -202,26 +202,26 @@ void Exponenter::printDoubleOverflowError()
     "Please lower the base or exponent to fit the number.\n";
 }
 
-void Exponenter::printExpDebugInfo(long long int temp, int i)
+void Exponenter::printExpDebugInfo(long long int& temp, int i)
 {
     std::cout << temp << '\n';
     std::cout << "Looped " << i << " time(s).\n";
 }
 
-void Exponenter::printExpDebugInfo(long double temp, int i, int k)
+void Exponenter::printExpDebugInfo(long double& temp, int i, int k)
 {
     std::cout << temp << '\n';
     std::cout << "Double-precision arithmetic looped " << i <<
     " time(s). Total " << k << " time(s).\n";
 }
 
-void Exponenter::printFactorialDebugInfo(long long int temp, int i, int loop)
+void Exponenter::printFactorialDebugInfo(long long unsigned int& temp, int& i, int loop)
 {
     std::cout << temp << '\n';
     std::cout << "Multiplying by " << i << ", Looped " << loop << " time(s).\n";
 }
 
-void Exponenter::printFactorialDebugInfo(long double temp2, int k, int i, int loop)
+void Exponenter::printFactorialDebugInfo(long double& temp2, int& k, int i, int loop)
 {
     std::cout << temp2 << '\n';
     std::cout << "Multiplying by " << k << ", Double-precision arithmetic looped " <<
