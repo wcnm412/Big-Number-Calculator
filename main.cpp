@@ -80,6 +80,8 @@ int main()
                 break;
             }
             case 4:
+            case INT_MAX:
+            case INT_MIN:
             {
                 break;
             }
@@ -87,7 +89,3 @@ int main()
     }
     return 0;
 }
-
-// TODO:
-
-// FIX NEGATIVE BASE IMMEDIATELY FALLING BACK TO DOUBLE WHEN EXPONENTIATING (CREATIVE SOLUTION NEEDED)

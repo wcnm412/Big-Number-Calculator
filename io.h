@@ -10,7 +10,7 @@ void printResult(auto result)
         std::cout << "Result: " << result << '\n';
 }
 
-constexpr int getInteger()
+constexpr long long int getInteger()
 {
     std::cout << "Enter an Integer: ";
     double x {};
@@ -23,7 +23,7 @@ constexpr int getInteger()
     return x;
 }
 
-constexpr double getNumber()
+constexpr long double getNumber()
 {
     std::cout << "Enter a number: ";
     double x {};

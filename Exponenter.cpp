@@ -84,11 +84,11 @@ double Exponenter::power(int intExp = 1)
     }
     if (intExp <= -1)
     {
-        for (int i {-1}; i > intExp; --i)
+        for (int i {1}; i < -intExp; ++i)
         {
             if (debug)
             {
-                printExpDebugInfo(temp, -i);
+                printExpDebugInfo(temp, i);
             }
             long long int prevTemp = temp;
             temp = temp * m_intBase;
@@ -97,11 +97,11 @@ double Exponenter::power(int intExp = 1)
             {
                 printIntOverflowError(i);
                 long double temp2 {static_cast<double>(prevTemp)};
-                for (int k {i}; k > intExp; --k)
+                for (int k {i}; k < -intExp; ++k)
                 {
                     if (debug)
                     {
-                        printExpDebugInfo(temp2, ((i - k) - 1), -k);
+                        printExpDebugInfo(temp2, ((k - i) + 1), k);
                     }
                     temp2 *= m_intBase;
                     if (temp2 > std::numeric_limits<double>::max())
@@ -121,15 +121,15 @@ double Exponenter::power(int intExp = 1)
 
 double Exponenter::factorial()
 {
-    while ((m_intBase < 0) || (!(isInteger())))
+    while ((m_intBase < 0) || m_intBase > INT64_MAX || (!(isInteger())))
     {
-        std::cerr << "Error: Factorial can only be applied to positive integers.";
+        std::cerr << "Error: Factorial can only be applied to positive integers below INT64_MAX.\n";
         replaceInteger();
     }
     std::cout << "Evaluating " << m_intBase << '!' << '\n';
     unsigned long long int temp {static_cast<unsigned long long int>(m_intBase)};
     long double overflowVar {};
-    for (int i {static_cast<int>(m_intBase) - 1}; i > 1; --i)
+    for (long long int i {static_cast<long long int>(m_intBase) - 1}; i > 1; --i)
     {
         unsigned long long int prevTemp = temp;
         temp *= i;
@@ -143,7 +143,7 @@ double Exponenter::factorial()
             std::cerr << "Integer Overflow Detected at factorial() on iteration: " << (m_intBase - i) << '\n' <<
                 "Falling back to double-precison floating-point format.\n";
             long double temp2 {static_cast<long double>(prevTemp)};
-            for (int k {i}; k > 1; --k)
+            for (long long int k {i}; k > 1; --k)
             {
                 if (debug)
                 {
@@ -173,13 +173,17 @@ bool Exponenter::overflowCheck(auto& currentValue, auto& lastValue, auto& overfl
 
 void Exponenter::replaceInteger()
 {
-    std::cout << "Enter an Integer: ";
+    std::cout << "Enter an integer: ";
     long double x {m_intBase};
     std::cin >> x;
-    while (x - static_cast<int>(x))
+    while (x < INT64_MAX)
     {
-        std::cout << "\nPlease enter an integer, not any other number type: ";
-        std::cin >> x;
+        while ((x - static_cast<long long int>(x)) != 0)
+        {
+            std::cout << "\nPlease enter an integer, not any other number type: ";
+            std::cin >> x;
+        }
+        break;
     }
     m_intBase = x;
 }
@@ -202,26 +206,26 @@ void Exponenter::printDoubleOverflowError()
     "Please lower the base or exponent to fit the number.\n";
 }
 
-void Exponenter::printExpDebugInfo(long long int& temp, int i)
+void Exponenter::printExpDebugInfo(long long int& temp, int& i)
 {
     std::cout << temp << '\n';
     std::cout << "Looped " << i << " time(s).\n";
 }
 
-void Exponenter::printExpDebugInfo(long double& temp, int i, int k)
+void Exponenter::printExpDebugInfo(long double& temp, int i, int& k)
 {
     std::cout << temp << '\n';
     std::cout << "Double-precision arithmetic looped " << i <<
     " time(s). Total " << k << " time(s).\n";
 }
 
-void Exponenter::printFactorialDebugInfo(long long unsigned int& temp, int& i, int loop)
+void Exponenter::printFactorialDebugInfo(long long unsigned int& temp, long long int& i, int loop)
 {
     std::cout << temp << '\n';
     std::cout << "Multiplying by " << i << ", Looped " << loop << " time(s).\n";
 }
 
-void Exponenter::printFactorialDebugInfo(long double& temp2, int& k, int i, int loop)
+void Exponenter::printFactorialDebugInfo(long double& temp2, long long int& k, long long int i, int loop)
 {
     std::cout << temp2 << '\n';
     std::cout << "Multiplying by " << k << ", Double-precision arithmetic looped " <<
@@ -230,7 +234,7 @@ void Exponenter::printFactorialDebugInfo(long double& temp2, int& k, int i, int 
 
 bool Exponenter::isInteger()
 {
-    if ((m_intBase - static_cast<int>(m_intBase)) == 0)
+    if (((m_intBase - static_cast<long long int>(m_intBase)) == 0) || (m_intBase > INT64_MAX))
     {
         return true;
     }
