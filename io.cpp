@@ -3,6 +3,8 @@
 int printMainMenu()
 {
     int x {-1};
+    std::cin.clear();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     while ((x < 1) || (x > 4))
     {
         std::cout << "\nThe following options are available:\n";
@@ -12,6 +14,11 @@ int printMainMenu()
         std::cout << "\t4. Quit\n";
         std::cout << "Please enter a number: ";
         std::cin >> x;
+        if ((!std::cin))
+        {
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
     }
     return x;
 }
@@ -19,6 +26,8 @@ int printMainMenu()
 int printFunctionMenu()
 {
     int x {-1};
+    std::cin.clear();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     while ((x < 1) || (x > 6))
     {
         std::cout << "\nThe following functions are available:\n";
@@ -30,6 +39,11 @@ int printFunctionMenu()
         std::cout << "\t6. Return to Menu\n";
         std::cout << "Please enter a number: ";
         std::cin >> x;
+        if (!std::cin)
+        {
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
     }
     return x;
 }
@@ -37,7 +51,9 @@ int printFunctionMenu()
 int printExpFunctionMenu()
 {
     int x {-1};
-    while ((x < 1) || (x > 4))
+    std::cin.clear();
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    while ((x < 1) || (x > 4));
     {   
         std::cout << "\nThe following functions are available:\n";
         std::cout << "\t1. Exponentiation\n";
@@ -46,6 +62,11 @@ int printExpFunctionMenu()
         std::cout << "\t4. Return to Menu\n";
         std::cout << "Please enter a number: ";
         std::cin >> x;
-    }
+        if (!std::cin)
+        {
+            std::cin.clear();
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        }
+    } 
     return x;
 }
