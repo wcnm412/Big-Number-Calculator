@@ -51,9 +51,7 @@ int printFunctionMenu()
 int printExpFunctionMenu()
 {
     int x {-1};
-    std::cin.clear();
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-    while ((x < 1) || (x > 4));
+    while ((x < 1) || (x > 4))
     {   
         std::cout << "\nThe following functions are available:\n";
         std::cout << "\t1. Exponentiation\n";
