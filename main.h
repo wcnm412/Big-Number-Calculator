@@ -10,7 +10,7 @@
 #include "config.h"
 #include "Exponenter.h"
 #include "io.h"
-#include "replacementBase.h"
+#include "history.h"
 
 #endif
 

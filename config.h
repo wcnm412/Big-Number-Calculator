@@ -1,5 +1,5 @@
-#ifndef DEBUG_H
-#define DEBUG_H
+#ifndef CONFIG_H
+#define CONFIG_H
 
 #include <iostream>
 extern bool debug;

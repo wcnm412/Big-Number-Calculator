@@ -6,6 +6,7 @@ int main()
     int option {-1};
     while (option != 4)
     {
+        history history {0};
         option = printMainMenu();
         switch (option)
         {
@@ -17,33 +18,32 @@ int main()
             }
             case 2:
             {
-                replacementBase replacer {};
-                replacer.m_baseReplace = number.m_intBase;
                 number.printBase();
+                long double result {};
                 switch (printFunctionMenu())
                 {
                     case 1:
                     {
-                        replacer.m_baseReplace = number.add(getNumber());
-                        printResult(replacer.m_baseReplace);
+                        result = number.add(getNumber());
+                        printResult(result);
                         break;
                     }
                     case 2:
                     {
-                        replacer.m_baseReplace = number.subtract(getNumber());
-                        printResult(replacer.m_baseReplace);
+                        result = number.subtract(getNumber());
+                        printResult(result);
                         break;
                     }
                     case 3:
                     {
-                        replacer.m_baseReplace = number.multiply(getNumber());
-                        printResult(replacer.m_baseReplace);
+                        result = number.multiply(getNumber());
+                        printResult(result);
                         break;
                     }
                     case 4:
                     {
-                        replacer.m_baseReplace = number.divide(getNumber());
-                        printResult(replacer.m_baseReplace);
+                        result = number.divide(getNumber());
+                        printResult(result);
                         break;
                     }
                     case 5:
@@ -57,14 +57,14 @@ int main()
                         {
                             case 1:
                             {
-                                replacer.m_baseReplace = number.power(getNumber());
-                                printResult(replacer.m_baseReplace);
+                                result = number.power(getNumber());
+                                printResult(result);
                                 break;
                             }
                             case 2:
                             {
-                                replacer.m_baseReplace = number.factorial();
-                                printResult(replacer.m_baseReplace);
+                                result = number.factorial();
+                                printResult(result);
                                 break;
                             }
                             case 3:
@@ -80,21 +80,18 @@ int main()
                     }
                 break;
                 }
-                if (!replacer.isEqual(number))
+                char x {-1};
+                while (!(x == 'y') || !(x == 'n'))
                 {
-                    char x {-1};
-                    while (!(x == 'y') || !(x == 'n'))
-                    {
-                        std::cout << "Would you like to use this result as the next base? (y/n)\n";
-                        std::cin >> x;
-                    }
-                    if (x == 'y')
-                    {
-                        number.m_intBase = replacer.m_baseReplace;
-                        replacer.replaceBaseIDIncrement();
-                    }
-                    break;
+                    std::cout << "Would you like to use this result as the next base? (y/n)\n";
+                    std::cin >> x;
                 }
+                if (x == 'y')
+                {
+                    history.saveToHistory(number.readBase());
+                    number.saveToBase(result);
+                }
+                break;
             break;
             }
             case 3:
