@@ -4,7 +4,7 @@ int main()
 {
     Exponenter number {getNumber()};
     int option {-1};
-    while (option != 4)
+    while (option != 5)
     {
         history history {0};
         option = printMainMenu();
@@ -80,11 +80,11 @@ int main()
                     }
                 break;
                 }
-                char x {-1};
-                while (!(x == 'y') || !(x == 'n'))
+                char x {0};
+                while (!((x == 'y') || (x == 'n')))
                 {
                     std::cout << "Would you like to use this result as the next base? (y/n)\n";
-                    std::cin >> x;
+                    x = getChar();
                 }
                 if (x == 'y')
                 {
@@ -100,6 +100,11 @@ int main()
                 break;
             }
             case 4:
+            {
+                history.printHistory();
+                break;
+            }
+            case 5:
             case INT_MAX:
             case INT_MIN:
             {

@@ -9,7 +9,8 @@ int printMainMenu()
         std::cout << "\t1. Enter a new base number\n";
         std::cout << "\t2. Perform a function on an existing number\n";
         std::cout << "\t3. Toggle debug information\n";
-        std::cout << "\t4. Quit\n";
+        std::cout << "\t4. Look through history\n";
+        std::cout << "\t5. Quit\n";
         std::cout << "Please enter a number: ";
         std::cin >> x;
     }

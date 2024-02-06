@@ -31,6 +31,14 @@ constexpr long double getNumber()
     return x;
 }
 
+constexpr char getChar()
+{
+    std::cout << "Enter a character: ";
+    char x {};
+    std::cin >> x;
+    return x;
+}
+
 int printMainMenu();
 int printFunctionMenu();
 int printExpFunctionMenu();
