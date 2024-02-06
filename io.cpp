@@ -5,13 +5,14 @@ int printMainMenu()
     int x {-1};
     std::cin.clear();
     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-    while ((x < 1) || (x > 4))
+    while ((x < 1) || (x > 5))
     {
         std::cout << "\nThe following options are available:\n";
         std::cout << "\t1. Enter a new base number\n";
         std::cout << "\t2. Perform a function on an existing number\n";
         std::cout << "\t3. Toggle debug information\n";
-        std::cout << "\t4. Quit\n";
+        std::cout << "\t4. Look through history\n";
+        std::cout << "\t5. Quit\n";
         std::cout << "Please enter a number: ";
         std::cin >> x;
         if ((!std::cin))

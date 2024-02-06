@@ -16,6 +16,8 @@ public:
     double divide(double b);
     double power(int intExp);
     double factorial();
+    void saveToBase(long double result);
+    long double readBase();
     bool overflowCheck(auto& currentValue, auto& lastValue, auto& overflowVar);
     void replaceInteger();
     void printBase();
@@ -26,7 +28,7 @@ public:
     void printFactorialDebugInfo(long long unsigned int& temp, long long int& i, int loop);
     void printFactorialDebugInfo(long double& temp2, long long int& k, long long int i, int loop);
     bool isInteger();
-
+    friend class history;
 };
 
 #endif

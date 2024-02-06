@@ -163,6 +163,16 @@ double Exponenter::factorial()
     return temp;
 }
 
+void Exponenter::saveToBase(long double result)
+{
+    m_intBase = result;
+}
+
+long double Exponenter::readBase()
+{
+    return m_intBase;
+}
+
 bool Exponenter::overflowCheck(auto& currentValue, auto& lastValue, auto& overflowVar) 
 {
     if ((currentValue != overflowVar * lastValue) || (currentValue < lastValue))
