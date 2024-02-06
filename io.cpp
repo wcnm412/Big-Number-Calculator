@@ -3,7 +3,7 @@
 int printMainMenu()
 {
     int x {-1};
-    while ((x < 1) || (x > 4))
+    while ((x < 1) || (x > 5))
     {
         std::cout << "\nThe following options are available:\n";
         std::cout << "\t1. Enter a new base number\n";

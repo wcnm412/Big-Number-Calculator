@@ -14,7 +14,7 @@ class history
 
     void saveToHistory(long double result);
     void printHistory();
-    auto replaceBase(int newBaseIndex, Exponenter num);
+    void replaceBase(Exponenter num);
 
 };
 

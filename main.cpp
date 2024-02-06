@@ -4,9 +4,9 @@ int main()
 {
     Exponenter number {getNumber()};
     int option {-1};
+    history history {0};
     while (option != 5)
     {
-        history history {0};
         option = printMainMenu();
         switch (option)
         {
@@ -102,6 +102,13 @@ int main()
             case 4:
             {
                 history.printHistory();
+                std::cout << "Do you want to change base to a stored number? (y/n)\n";
+                char wantReplace {};
+                std::cin >> wantReplace;
+                if (wantReplace)
+                {
+                    history.replaceBase(number);
+                }
                 break;
             }
             case 5:

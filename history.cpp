@@ -3,24 +3,28 @@
 history::history(long double history)
     : m_history {history}
 {
-    std::cout << "Result added to history\n";
+    std::cout << "History vector initialised\n";
 }
 
 void history::saveToHistory(long double result)
 {
-    m_history.resize(m_history.capacity() + 1);
+    m_history.resize(m_history.size() + 1);
     m_history.back() = result;
+    std::cout << "Previous base saved to history\n";
 }
 
 void history::printHistory()
 {
-    for (int index : m_history)
+    for (unsigned int index {0}; index < m_history.size(); ++index)
     {
-        std::cout << "At index " << index << " is " << m_history[index] << '\n';
+        std::cout << "Index " << index << " : " << m_history[index] << '\n';
     }
 }
 
-auto history::replaceBase(int newBaseIndex, Exponenter num)
+void history::replaceBase(Exponenter num)
 {
-    num.m_intBase = m_history[newBaseIndex];
+    std::cout << "Which indexed number would you like to use as the new base?\n";
+    std::size_t x {getInteger()};
+    num.m_intBase = m_history[x];
+    std::cout << "Base now changed to: " << num.m_intBase << '\n';
 }
