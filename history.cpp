@@ -1,12 +1,12 @@
 #include "history.h"
 
-history::history(auto history)
+history::history(long double history)
     : m_history {history}
 {
     std::cout << "Result added to history\n";
 }
 
-void history::saveToHistory(auto result)
+void history::saveToHistory(long double result)
 {
     m_history.resize(m_history.capacity() + 1);
     m_history.back() = result;

@@ -163,7 +163,7 @@ double Exponenter::factorial()
     return temp;
 }
 
-void Exponenter::saveToBase(auto result)
+void Exponenter::saveToBase(long double result)
 {
     m_intBase = result;
 }

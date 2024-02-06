@@ -16,7 +16,7 @@ public:
     double divide(double b);
     double power(int intExp);
     double factorial();
-    void saveToBase(auto result);
+    void saveToBase(long double result);
     long double readBase();
     bool overflowCheck(auto& currentValue, auto& lastValue, auto& overflowVar);
     void replaceInteger();
