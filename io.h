@@ -2,7 +2,8 @@
 #define IO_H
 
 #include <iostream>
-void printResult(auto& result)
+#include <limits>
+void printResult(auto result)
 {
     if (result - (static_cast<long long int>(result)) == 0)
         std::cout << "Result: " << static_cast<long long int>(result) << '\n';
