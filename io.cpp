@@ -52,13 +52,12 @@ int printFunctionMenu()
 int printExpFunctionMenu()
 {
     int x {-1};
-    while ((x < 1) || (x > 4))
+    while ((x < 1) || (x > 3))
     {   
         std::cout << "\nThe following functions are available:\n";
         std::cout << "\t1. Exponentiation\n";
         std::cout << "\t2. Factorial\n";
-        std::cout << "\t3. Back\n";
-        std::cout << "\t4. Return to Menu\n";
+        std::cout << "\t3. Return to Menu\n";
         std::cout << "Please enter a number: ";
         std::cin >> x;
         if (!std::cin)

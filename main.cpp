@@ -20,6 +20,7 @@ int main()
             {
                 number.printBase();
                 long double result {};
+                bool noResult {0};
                 switch (printFunctionMenu())
                 {
                     case 1:
@@ -69,6 +70,7 @@ int main()
                             }
                             case 3:
                             {
+                                noResult = 1;
                                 break;
                             }
                         }
@@ -76,23 +78,26 @@ int main()
                     }
                     case 6:
                     {
+                        noResult = 1;
                         break;
                     }
                 break;
                 }
-                char x {0};
-                while (!((x == 'y') || (x == 'n')))
+                if (!noResult)
                 {
-                    std::cout << "Would you like to use this result as the next base? (y/n)\n";
-                    x = getChar();
-                }
-                if (x == 'y')
-                {
-                    history.saveToHistory(number.readBase());
-                    number.saveToBase(result);
+                    char x {-1};
+                    while (!((x == 'y') || (x == 'n')))
+                    {
+                        std::cout << "Would you like to use this result as the next base? (y/n)\n";
+                        x = getChar();
+                    }
+                    if (x == 'y')
+                    {
+                        history.saveToHistory(number.readBase());
+                        number.saveToBase(result);
+                    }
                 }
                 break;
-            break;
             }
             case 3:
             {
@@ -105,7 +110,7 @@ int main()
                 std::cout << "Do you want to change base to a stored number? (y/n)\n";
                 char wantReplace {};
                 std::cin >> wantReplace;
-                if (wantReplace)
+                if (wantReplace == 'y')
                 {
                     history.replaceBase(number);
                 }

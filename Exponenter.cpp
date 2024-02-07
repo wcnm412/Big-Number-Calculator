@@ -7,31 +7,31 @@ Exponenter::Exponenter(long double intBase)
     std::cout << "Constructed Number with value: " << m_intBase << '\n';
 }
 
-double Exponenter::add(double b)
+double Exponenter::add(const double& b)
 {
     std::cout << "Evaluating: " << m_intBase << " + " << b << '\n';
     return (m_intBase + b);
 }
 
-double Exponenter::subtract(double b)
+double Exponenter::subtract(const double& b)
 {
     std::cout << "Evaluating: " << m_intBase << " - " << b << '\n';
     return (m_intBase - b);
 }
 
-double Exponenter::multiply(double b)
+double Exponenter::multiply(const double& b)
 {
     std::cout << "Evaluating: " << m_intBase << " * " << b << '\n';
     return (m_intBase * b);
 }
 
-double Exponenter::divide(double b)
+double Exponenter::divide(const double& b)
 {
     std::cout << "Evaluating: " << m_intBase << " / " << b << '\n';
     return (m_intBase / b);
 }
 
-double Exponenter::power(int intExp = 1)
+double Exponenter::power(const int& intExp)
 {
     while (!(isInteger()))
     {
@@ -78,7 +78,7 @@ double Exponenter::power(int intExp = 1)
         }
         return temp;
     }
-    if (intExp == 0)
+    if ((intExp == 0) || (m_intBase == 1))
     {
         return 1;
     }
@@ -163,7 +163,7 @@ double Exponenter::factorial()
     return temp;
 }
 
-void Exponenter::saveToBase(long double result)
+void Exponenter::saveToBase(const long double& result)
 {
     m_intBase = result;
 }
@@ -222,20 +222,20 @@ void Exponenter::printExpDebugInfo(long long int& temp, int& i)
     std::cout << "Looped " << i << " time(s).\n";
 }
 
-void Exponenter::printExpDebugInfo(long double& temp, int i, int& k)
+void Exponenter::printExpDebugInfo(long double& temp, const int& i, int& k)
 {
     std::cout << temp << '\n';
     std::cout << "Double-precision arithmetic looped " << i <<
     " time(s). Total " << k << " time(s).\n";
 }
 
-void Exponenter::printFactorialDebugInfo(long long unsigned int& temp, long long int& i, int loop)
+void Exponenter::printFactorialDebugInfo(long long unsigned int& temp, long long int& i, const int& loop)
 {
     std::cout << temp << '\n';
     std::cout << "Multiplying by " << i << ", Looped " << loop << " time(s).\n";
 }
 
-void Exponenter::printFactorialDebugInfo(long double& temp2, long long int& k, long long int i, int loop)
+void Exponenter::printFactorialDebugInfo(long double& temp2, long long int& k, const long long int& i, const int& loop)
 {
     std::cout << temp2 << '\n';
     std::cout << "Multiplying by " << k << ", Double-precision arithmetic looped " <<
