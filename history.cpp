@@ -1,21 +1,21 @@
 #include "history.h"
 
 history::history(long double history)
-    : m_history (10)
+    : m_history {}
 {
+    m_history.reserve(10);
     std::cout << "History vector initialised with " << m_history.capacity() << " spaces\n";
 }
 
 void history::saveToHistory(const long double& result)
 {
-    if (((indexedValue % 10) == 0) && (indexedValue != 0))
+    if (((m_history.size() % 10) == 0) && (m_history.size() != 0))
     {
-        m_history.resize(m_history.size() + 10);
+        m_history.reserve(10);
         std::cout << "History capacity reached. Allocating 10 more spaces for a total of " 
             << m_history.capacity() << '\n';
     }
-    m_history[indexedValue] = result;
-    ++indexedValue;
+    m_history.push_back(result);
     std::cout << "Previous base saved to history\n";
 }
 

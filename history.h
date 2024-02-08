@@ -7,8 +7,7 @@
 
 class history
 {
-    std::vector<long double> m_history {0};
-    size_t indexedValue {0};
+    std::vector<long double> m_history {};
 
     public:
     explicit history(long double history);
