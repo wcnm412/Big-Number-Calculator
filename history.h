@@ -7,12 +7,12 @@
 
 class history
 {
-    std::vector<long double> m_history {0};
+    std::vector<long double> m_history {};
 
     public:
     explicit history(long double history);
 
-    void saveToHistory(long double result);
+    void saveToHistory(const long double& result);
     void printHistory();
     void replaceBase(Exponenter num);
 

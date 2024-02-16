@@ -1,21 +1,27 @@
 #include "history.h"
 
 history::history(long double history)
-    : m_history {history}
+    : m_history {}
 {
-    std::cout << "History vector initialised\n";
+    m_history.reserve(10);
+    std::cout << "History vector initialised with " << m_history.capacity() << " spaces\n";
 }
 
-void history::saveToHistory(long double result)
+void history::saveToHistory(const long double& result)
 {
-    m_history.resize(m_history.size() + 1);
-    m_history.back() = result;
+    if (((m_history.size() % 10) == 0) && (m_history.size() != 0))
+    {
+        m_history.reserve(10);
+        std::cout << "History capacity reached. Allocating 10 more spaces for a total of " 
+            << m_history.capacity() << '\n';
+    }
+    m_history.push_back(result);
     std::cout << "Previous base saved to history\n";
 }
 
 void history::printHistory()
 {
-    for (unsigned int index {0}; index < m_history.size(); ++index)
+    for (std::size_t index {0}; index < m_history.size(); ++index)
     {
         std::cout << "Index " << index << " : " << m_history[index] << '\n';
     }
@@ -24,7 +30,7 @@ void history::printHistory()
 void history::replaceBase(Exponenter num)
 {
     std::cout << "Which indexed number would you like to use as the new base?\n";
-    std::size_t x {getInteger()};
+    std::size_t x {static_cast<size_t>(getInteger())};
     num.m_intBase = m_history[x];
     std::cout << "Base now changed to: " << num.m_intBase << '\n';
 }

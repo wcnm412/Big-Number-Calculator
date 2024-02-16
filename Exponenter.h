@@ -10,13 +10,13 @@ class Exponenter
 
 public:
     explicit Exponenter(long double m_intBase);
-    double add(double b);
-    double subtract(double b);
-    double multiply(double b);
-    double divide(double b);
-    double power(int intExp);
+    double add(const double& b);
+    double subtract(const double& b);
+    double multiply(const double& b);
+    double divide(const double& b);
+    double power(const int& intExp);
     double factorial();
-    void saveToBase(long double result);
+    void saveToBase(const long double& result);
     long double readBase();
     bool overflowCheck(auto& currentValue, auto& lastValue, auto& overflowVar);
     void replaceInteger();
@@ -24,9 +24,9 @@ public:
     void printIntOverflowError(int& i);
     void printDoubleOverflowError();
     void printExpDebugInfo(long long int& temp, int& i);
-    void printExpDebugInfo(long double& temp, int i, int& k);
-    void printFactorialDebugInfo(long long unsigned int& temp, long long int& i, int loop);
-    void printFactorialDebugInfo(long double& temp2, long long int& k, long long int i, int loop);
+    void printExpDebugInfo(long double& temp, const int& i, int& k);
+    void printFactorialDebugInfo(long long unsigned int& temp, long long int& i, const int& loop);
+    void printFactorialDebugInfo(long double& temp2, long long int& k, const long long int& i, const int& loop);
     bool isInteger();
     friend class history;
 };

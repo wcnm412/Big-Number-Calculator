@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <limits>
-void printResult(auto result)
+void printResult(const auto& result)
 {
     if (result - (static_cast<long long int>(result)) == 0)
         std::cout << "Result: " << static_cast<long long int>(result) << '\n';
